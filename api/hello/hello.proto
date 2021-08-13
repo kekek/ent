@@ -2,9 +2,8 @@ syntax = "proto3";
 
 package hello;
 
-import "third-party/ent/options/opts.proto";
-import "third-party/google/protobuf/timestamp.proto";
-
+import "ent/options/opts.proto";
+import "google/protobuf/timestamp.proto";
 
 option go_package = "ent-todo/api/hello;hello";
 
