@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package hello;
+
+import "third-party/ent/options/opts.proto";
+import "third-party/google/protobuf/timestamp.proto";
+
+
+option go_package = "ent-todo/api/hello;hello";
+
+message Hello {
+    option (ent.schema).gen = true;
+    int64 id = 1 [(ent.field) = {unique: true, struct_tag: "test-id"}];
+    string name = 2 [(ent.field).nillable = true];
+    string email_address = 3;
+    google.protobuf.Timestamp last_updated = 4;
+}
+
