@@ -1,6 +1,6 @@
 // File updated by protoc-gen-ent.
 
-package schema
+package bak
 
 import (
 	"time"

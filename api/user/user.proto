@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "third-party/ent/options/opts.proto";
+import "third-party/google/protobuf/timestamp.proto";
+
+option go_package = "ent-todo/api/user;user";
+
+message User {
+    option (ent.schema).gen = true;
+
+    int64 id = 1;
+    string account = 2;
+    string password = 3;
+    string name = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+    //    repeated Device owner = 7 [(ent.edge) = {}];
+}
