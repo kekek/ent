@@ -1,0 +1,1 @@
+生成 schema 时， 会验证字段是不是message类型， 当是message类型是， 强制要求edge，因此 google.protobuf.Timestamp 类型不能使用只能处理成字符串类型

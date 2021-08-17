@@ -1,4 +1,10 @@
 syntax = "proto3";
 
+import "third-party/google/protobuf/timestamp.proto";
+
 option go_package = "ent-todo/api/device;device";
 
+
+message Test {
+    google.protobuf.Timestamp create_at = 1;
+}
