@@ -18,7 +18,7 @@ func (User) Fields() []ent.Field {
 
 }
 func (User) Edges() []ent.Edge {
-	return []ent.Edge{edge.To("card", Card.Type)}
+	return []ent.Edge{edge.To("card", Card.Type), edge.To("groups", Group.Type).StorageKey(edge.Table("user_group"), edge.Columns("uid", "gid"))}
 }
 func (User) Annotations() []schema.Annotation {
 	return nil

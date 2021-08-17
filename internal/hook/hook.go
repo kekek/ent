@@ -21,6 +21,19 @@ func (f CardFunc) Mutate(ctx context.Context, m internal.Mutation) (internal.Val
 	return f(ctx, mv)
 }
 
+// The GroupFunc type is an adapter to allow the use of ordinary
+// function as Group mutator.
+type GroupFunc func(context.Context, *internal.GroupMutation) (internal.Value, error)
+
+// Mutate calls f(ctx, m).
+func (f GroupFunc) Mutate(ctx context.Context, m internal.Mutation) (internal.Value, error) {
+	mv, ok := m.(*internal.GroupMutation)
+	if !ok {
+		return nil, fmt.Errorf("unexpected mutation type %T. expect *internal.GroupMutation", m)
+	}
+	return f(ctx, mv)
+}
+
 // The UserFunc type is an adapter to allow the use of ordinary
 // function as User mutator.
 type UserFunc func(context.Context, *internal.UserMutation) (internal.Value, error)

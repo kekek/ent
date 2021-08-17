@@ -14,6 +14,7 @@ message User {
     //    google.protobuf.Timestamp created_at = 5;
     //    google.protobuf.Timestamp updated_at = 6;
     repeated Card card = 7 [(ent.edge) = {}];
+    repeated Group groups = 8 [(ent.edge) = {storage_key: {table: "user_group", columns: ["uid", "gid"]}}];
 }
 
 message Card {
@@ -25,4 +26,12 @@ message Card {
     string os_type = 4;
     int64 user_id = 5;
     User user = 6 [(ent.edge) = {ref: "card", unique: true, field: "user_id",required: true}];
+}
+
+message Group {
+    option (ent.schema).gen = true;
+
+    int64 id = 1;
+    int64 name = 2;
+    User user = 3 [(ent.edge) = {ref: "groups"}];
 }

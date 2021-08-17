@@ -4,6 +4,7 @@ package internal
 
 import (
 	"ent-todo/internal/card"
+	"ent-todo/internal/group"
 	"ent-todo/internal/user"
 	"errors"
 	"fmt"
@@ -30,8 +31,9 @@ type OrderFunc func(*sql.Selector)
 // columnChecker returns a function indicates if the column exists in the given column.
 func columnChecker(table string) func(string) error {
 	checks := map[string]func(string) bool{
-		card.Table: card.ValidColumn,
-		user.Table: user.ValidColumn,
+		card.Table:  card.ValidColumn,
+		group.Table: group.ValidColumn,
+		user.Table:  user.ValidColumn,
 	}
 	check, ok := checks[table]
 	if !ok {

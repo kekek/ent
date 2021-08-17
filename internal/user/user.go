@@ -15,6 +15,8 @@ const (
 	FieldName = "name"
 	// EdgeCard holds the string denoting the card edge name in mutations.
 	EdgeCard = "card"
+	// EdgeGroups holds the string denoting the groups edge name in mutations.
+	EdgeGroups = "groups"
 	// Table holds the table name of the user in the database.
 	Table = "users"
 	// CardTable is the table that holds the card relation/edge.
@@ -24,6 +26,11 @@ const (
 	CardInverseTable = "cards"
 	// CardColumn is the table column denoting the card relation/edge.
 	CardColumn = "user_id"
+	// GroupsTable is the table that holds the groups relation/edge. The primary key declared below.
+	GroupsTable = "user_group"
+	// GroupsInverseTable is the table name for the Group entity.
+	// It exists in this package in order to avoid circular dependency with the "group" package.
+	GroupsInverseTable = "groups"
 )
 
 // Columns holds all SQL columns for user fields.
@@ -33,6 +40,12 @@ var Columns = []string{
 	FieldPassword,
 	FieldName,
 }
+
+var (
+	// GroupsPrimaryKey and GroupsColumn2 are the table columns denoting the
+	// primary key for the groups relation (M2M).
+	GroupsPrimaryKey = []string{"uid", "gid"}
+)
 
 // ValidColumn reports if the column name is valid (part of the table columns).
 func ValidColumn(column string) bool {

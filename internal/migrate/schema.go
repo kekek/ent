@@ -30,6 +30,17 @@ var (
 			},
 		},
 	}
+	// GroupsColumns holds the columns for the "groups" table.
+	GroupsColumns = []*schema.Column{
+		{Name: "id", Type: field.TypeInt64, Increment: true},
+		{Name: "name", Type: field.TypeInt64},
+	}
+	// GroupsTable holds the schema information for the "groups" table.
+	GroupsTable = &schema.Table{
+		Name:       "groups",
+		Columns:    GroupsColumns,
+		PrimaryKey: []*schema.Column{GroupsColumns[0]},
+	}
 	// UsersColumns holds the columns for the "users" table.
 	UsersColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt64, Increment: true},
@@ -43,13 +54,42 @@ var (
 		Columns:    UsersColumns,
 		PrimaryKey: []*schema.Column{UsersColumns[0]},
 	}
+	// UserGroupColumns holds the columns for the "user_group" table.
+	UserGroupColumns = []*schema.Column{
+		{Name: "uid", Type: field.TypeInt64},
+		{Name: "gid", Type: field.TypeInt64},
+	}
+	// UserGroupTable holds the schema information for the "user_group" table.
+	UserGroupTable = &schema.Table{
+		Name:       "user_group",
+		Columns:    UserGroupColumns,
+		PrimaryKey: []*schema.Column{UserGroupColumns[0], UserGroupColumns[1]},
+		ForeignKeys: []*schema.ForeignKey{
+			{
+				Symbol:     "user_group_uid",
+				Columns:    []*schema.Column{UserGroupColumns[0]},
+				RefColumns: []*schema.Column{UsersColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+			{
+				Symbol:     "user_group_gid",
+				Columns:    []*schema.Column{UserGroupColumns[1]},
+				RefColumns: []*schema.Column{GroupsColumns[0]},
+				OnDelete:   schema.Cascade,
+			},
+		},
+	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
 		CardsTable,
+		GroupsTable,
 		UsersTable,
+		UserGroupTable,
 	}
 )
 
 func init() {
 	CardsTable.ForeignKeys[0].RefTable = UsersTable
+	UserGroupTable.ForeignKeys[0].RefTable = UsersTable
+	UserGroupTable.ForeignKeys[1].RefTable = GroupsTable
 }
