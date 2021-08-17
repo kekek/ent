@@ -25,12 +25,26 @@ func main() {
 	defer client.Close()
 
 	ctx := context.TODO()
-	err = Do(ctx, client)
-	if err != nil {
-		log.Fatalf("create info failed %v", err)
-	}
+	//err = Do(ctx, client)
+	//if err != nil {
+	//	log.Fatalf("create info failed %v", err)
+	//}
+
+	query(ctx, client)
 
 	log.Println("create done")
+}
+
+func query(ctx context.Context, client *ent.Client) {
+
+	users, err := client.User.Query().All(ctx)
+	if err != nil {
+		log.Println(err)
+	}
+
+	for i := range users {
+		log.Printf("%#v \n", users[i].String())
+	}
 }
 
 func Do(ctx context.Context, client *ent.Client) error {

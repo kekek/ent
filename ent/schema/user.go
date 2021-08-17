@@ -14,7 +14,7 @@ type User struct {
 }
 
 func (User) Fields() []ent.Field {
-	return []ent.Field{field.Int64("id"), field.String("account"), field.String("password"), field.String("name")}
+	return []ent.Field{field.Int64("id"), field.String("account"), field.String("password").Immutable(), field.String("name")}
 
 }
 func (User) Edges() []ent.Edge {

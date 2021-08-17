@@ -48,13 +48,12 @@ service UserService {
     }
 }
 
-
 message User {
     option (ent.schema).gen = true;
 
     int64 id = 1;
     string account = 2;
-    string password = 3;
+    string password = 3 [(ent.field) = {immutable: true}];
     string name = 4;
     //    google.protobuf.Timestamp created_at = 5;
     //    google.protobuf.Timestamp updated_at = 6;
