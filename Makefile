@@ -38,6 +38,16 @@ run:
 	go run -mod=vendor -v main.go
 
 
+
+.PHONY: swagger
+# gen swagger
+swagger:
+	protoc --proto_path=. \
+    --proto_path=./third-party/ \
+    --go_out=paths=source_relative:. \
+    --openapiv2_out . \
+    api/user/user.proto
+
 .PHONY: help
 # show help
 help:
