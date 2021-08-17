@@ -4,39 +4,33 @@
 
 package main
 
-import "fmt"
+import (
+	"context"
+	"log"
+
+	ent "ent-todo/internal"
+
+	_ "github.com/go-sql-driver/mysql"
+)
 
 func main() {
-	fmt.Println("test protobuf plugin")
+	createTables()
+
+	//client, err := ent.Open("mysql", "test:test@tcp(10.50.23.194:3306)/ent?parseTime=true")
+	//if err != nil {
+	//	log.Fatalf("failed opening connection to mysql: %v", err)
+	//}
+	//defer client.Close()
+	//
+	//ctx := context.TODO()
+	//err = Do(ctx, client)
+	//if err != nil {
+	//	log.Fatalf("create info failed %v", err)
+	//}
+
+	log.Println("create done")
 }
 
-//import (
-//	"context"
-//	"fmt"
-//	"log"
-//	"time"
-//
-//	"ent-todo/internal/ent"
-//
-//	_ "github.com/go-sql-driver/mysql"
-//)
-//
-//func main() {
-//	client, err := ent.Open("mysql", "test:test@tcp(10.50.23.194:3306)/ent?parseTime=true")
-//	if err != nil {
-//		log.Fatalf("failed opening connection to mysql: %v", err)
-//	}
-//	defer client.Close()
-//
-//	ctx := context.TODO()
-//	err = Do(ctx, client)
-//	if err != nil {
-//		log.Fatalf("create info failed %v", err)
-//	}
-//
-//	log.Println("create done")
-//}
-//
 //func Do(ctx context.Context, client *ent.Client) error {
 //
 //
@@ -80,14 +74,14 @@ func main() {
 //}
 //
 //
-//func createTables()  {
-//	client, err := ent.Open("mysql", "test:test@tcp(10.50.23.194:3306)/ent")
-//	if err != nil {
-//		log.Fatalf("failed opening connection to mysql: %v", err)
-//	}
-//	defer client.Close()
-//	// Run the auto migration tool.
-//	if err := client.Schema.Create(context.Background()); err != nil {
-//		log.Fatalf("failed creating schema resources: %v", err)
-//	}
-//}
+func createTables() {
+	client, err := ent.Open("mysql", "test:test@tcp(10.50.23.194:3306)/ent")
+	if err != nil {
+		log.Fatalf("failed opening connection to mysql: %v", err)
+	}
+	defer client.Close()
+	// Run the auto migration tool.
+	if err := client.Schema.Create(context.Background()); err != nil {
+		log.Fatalf("failed creating schema resources: %v", err)
+	}
+}

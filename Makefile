@@ -18,17 +18,25 @@ example-add:
 .PHONY: schema
 # generate ent proto
 schema:
-	@echo "protoc --proto_path=. \
+	protoc --proto_path=. \
 	       --proto_path=./third-party/ \
 		   --proto_path=$$GOPATH \
  	       --ent_out=./internal/ent \
  	       --ent_opt=schemadir=./ent/schema/ \
-	       $(API_PROTO_FILES)"
+	       $(API_PROTO_FILES)
 
 .PHONY: gen-schema
 # generate ent schema to sql
 gen-schema:
-	go generate ./ent
+#	go run -mod=mod entgo.io/ent/cmd/ent generate --target ./internal/ent ./ent/schema
+	go run -mod=mod entgo.io/ent/cmd/ent generate --target ./internal/ ./ent/schema/
+
+
+.PHONY: run
+# run main.go
+run:
+	go run -mod=vendor -v main.go
+
 
 .PHONY: help
 # show help

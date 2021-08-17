@@ -1,14 +1,4 @@
 syntax = "proto3";
 
-import "third-party/ent/options/opts.proto";
-
 option go_package = "ent-todo/api/device;device";
 
-message Card {
-    option (ent.schema).gen = true;
-
-    int64 id = 1;
-    string imei = 2;
-    string os_version = 3;
-    string os_type = 4;
-}
